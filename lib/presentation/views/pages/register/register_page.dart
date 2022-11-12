@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/custom_elevatedbutton_widget.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/custom_textfieldform_widget.dart';
-import 'package:hackathon_app/presentation/views/pages/login_page.dart';
+import 'package:hackathon_app/presentation/views/pages/login/login_page.dart';
 
 class RegisterPage extends StatelessWidget {
   static const routeName = "register";

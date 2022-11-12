@@ -7,14 +7,16 @@ class CustomTextFieldForm extends StatefulWidget {
   final IconData icon;
   final TextInputType inputType;
   final bool obscureText;
-  const CustomTextFieldForm(
-      {Key? key,
-      this.margin = 15.0,
-      this.text = '',
-      this.icon = Icons.crop_square,
-      this.inputType = TextInputType.text,
-      this.obscureText = false})
-      : super(key: key);
+  final VoidCallback? onTap;
+  const CustomTextFieldForm({
+    Key? key,
+    this.margin = 15.0,
+    this.text = '',
+    this.icon = Icons.crop_square,
+    this.inputType = TextInputType.text,
+    this.obscureText = false,
+    this.onTap,
+  }) : super(key: key);
 
   @override
   State<CustomTextFieldForm> createState() => _CustomTextFieldFormState();
@@ -50,21 +52,6 @@ class _CustomTextFieldFormState extends State<CustomTextFieldForm> {
         keyboardType: widget.inputType,
         style: TextStyle(color: AppColors.text.rawText),
         obscureText: widget.obscureText ? _isPressed : false,
-        validator: (value) => _errorSelection(widget.inputType.index, value!),
+        onTap: widget.onTap,
       ));
-}
-
-_errorSelection(int inpuIndex, String text) {
-  if (inpuIndex == 0) return _errorFullName(text);
-  // if (inpuIndex == 2) return _errorNumber(text);
-}
-
-String? _errorFullName(String text) {
-  if (text.isEmpty) {
-    return 'Ingrese un nombre';
-  }
-  if (text.length > 27) {
-    return 'El nombre no puede exceder los 27 caracteres';
-  }
-  return null;
 }
