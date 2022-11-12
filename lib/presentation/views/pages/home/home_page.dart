@@ -40,7 +40,9 @@ class HomePage extends StatelessWidget {
                           initialCameraPosition:
                               controller.initialCameraPosition,
                           markers: controller.markers,
-                          onTap: controller.onTap,
+                          onTap: (LatLng position){
+                            controller.onTap(position, context);
+                          },
                         ),
                         Center(
                           child: Column(
