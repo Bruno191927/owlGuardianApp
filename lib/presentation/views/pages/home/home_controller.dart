@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' show ChangeNotifier, Offset;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 import 'package:hackathon_app/presentation/core/routes/image_to_bytes.dart';
+import 'package:hackathon_app/presentation/core/shared_widgets/modal_bottom_sheet_widget.dart';
 import 'package:hackathon_app/presentation/core/styles/map/map_styles.dart';
 
 class HomeController with ChangeNotifier {
@@ -63,7 +65,7 @@ class HomeController with ChangeNotifier {
 
   Future<void> turnOnGps() => Geolocator.openLocationSettings();
 
-  void onTap(LatLng position,BuildContext context) async {
+  void onTap(LatLng position, BuildContext context) async {
     final id = _markers.length.toString();
     final markerId = MarkerId(id);
     final icon = await _iconMap.future;
@@ -75,19 +77,17 @@ class HomeController with ChangeNotifier {
         icon: icon,
         onTap: () {
           _markersController.sink.add(id);
-          // showModalBottomSheet(context: context, builder: (context){
-          //   return Container(
-          //     child: Column(
-          //       children: [
-          //         Text('TITLE'),
-          //         Container(
-          //           height: 200,
-          //           width: 200,
-          //         ),
-          //       ],
-          //     ),
-          //   );
-          // });
+          showModalBottomSheet(
+            context: context,
+            builder: (context) => const ModalBottomSheet(),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15.0),
+                    topRight: Radius.circular(15.0))),
+            constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.85),
+            isScrollControlled: true,
+          );
         },
         onDragEnd: (newPosition) {
           //print(newPosition);

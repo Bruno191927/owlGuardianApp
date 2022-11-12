@@ -35,11 +35,10 @@ class _RegisterPageState extends State<RegisterPage> {
               physics: const BouncingScrollPhysics(),
               child: Column(children: [
                 Text('CREAR CUENTA',
-                    style: TextStyle(
-                        color: AppColors.text.rawText, fontSize: 30.0)),
+                    style: TextStyle(color: AppColors.white, fontSize: 30.0)),
                 const SizedBox(height: 8.0),
                 Text('Por favor, complete el siguiente formulario:',
-                    style: TextStyle(color: AppColors.text.fieldForm)),
+                    style: TextStyle(color: AppColors.white70)),
                 const SizedBox(height: 40.0),
                 Form(
                     key: _registerController.formKey,
@@ -92,14 +91,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 40.0),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Text('¿Ya tienes una cuenta?',
-                      style: TextStyle(color: AppColors.text.fieldForm)),
+                      style: TextStyle(color: AppColors.white70)),
                   TextButton(
                       onPressed: () => Navigator.of(context).push(
                           (MaterialPageRoute(
                               builder: (context) => const LoginPage()))),
                       child: Text('Ingresa aquí',
-                          style: TextStyle(color: AppColors.text.cyan)))
+                          style: TextStyle(color: AppColors.cyan)))
                 ])
               ]))),
-      backgroundColor: AppColors.scaffold.background);
+      backgroundColor: AppColors.greyBackground);
 }
