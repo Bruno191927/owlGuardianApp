@@ -3,9 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/custom_elevatedbutton_widget.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/custom_textfieldform_widget.dart';
-import 'package:hackathon_app/presentation/views/pages/home/home_page.dart';
 import 'package:hackathon_app/presentation/views/pages/login/login_controller.dart';
-import 'package:hackathon_app/presentation/views/pages/register/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = "login";

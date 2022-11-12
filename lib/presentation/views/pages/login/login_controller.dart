@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hackathon_app/presentation/views/pages/home/home_page.dart';
 import 'package:hackathon_app/presentation/views/pages/register/register_page.dart';
+import 'package:hackathon_app/presentation/views/pages/splash/splash_page.dart';
 
 class LoginController {
   BuildContext? context;
@@ -11,7 +11,7 @@ class LoginController {
   }
 
   void submit() {
-    Navigator.pushNamed(context!, HomePage.routeName);
+    Navigator.pushNamed(context!, SplashPage.routeName);
   }
 
   void register() {
