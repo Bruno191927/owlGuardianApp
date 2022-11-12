@@ -15,6 +15,9 @@ class HomeController with ChangeNotifier{
   bool _loading = true;
   bool get loading => _loading;
 
+  bool _dialogEnabled = false;
+  bool get dialogEnabled => _dialogEnabled;
+
   late bool _gpsEnabled;
   bool get gpsEnable => _gpsEnabled;
 
@@ -22,6 +25,11 @@ class HomeController with ChangeNotifier{
 
   HomeController(){
     _init();
+  }
+
+  void changeDialogEnabled(bool value){
+    _dialogEnabled = value;
+    notifyListeners();
   }
 
 
@@ -56,6 +64,9 @@ class HomeController with ChangeNotifier{
   Future<void> turnOnGps() => Geolocator.openLocationSettings();
 
   void onTap(LatLng position) async{
+
+    changeDialogEnabled(false);
+
     final id = _markers.length.toString();
     final markerId = MarkerId(id);
     final icon = await _iconMap.future;
@@ -67,6 +78,7 @@ class HomeController with ChangeNotifier{
       icon: icon,
       onTap: (){
         _markersController.sink.add(id);
+        changeDialogEnabled(true);
       },
       onDragEnd: (newPosition){
         //print(newPosition);
