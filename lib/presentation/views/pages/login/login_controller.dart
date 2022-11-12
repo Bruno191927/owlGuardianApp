@@ -10,11 +10,11 @@ class LoginController {
     this.context = context;
   }
 
-  void submit() {
-    Navigator.pushNamed(context!, HomePage.routeName);
-  }
-
   void register() {
     Navigator.pushNamed(context!, RegisterPage.routeName);
+  }
+
+  void submit() {
+    Navigator.pushNamed(context!, HomePage.routeName);
   }
 }
