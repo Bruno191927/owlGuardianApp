@@ -63,9 +63,7 @@ class HomeController with ChangeNotifier {
 
   Future<void> turnOnGps() => Geolocator.openLocationSettings();
 
-  void onTap(LatLng position) async {
-    changeDialogEnabled(false);
-
+  void onTap(LatLng position,BuildContext context) async {
     final id = _markers.length.toString();
     final markerId = MarkerId(id);
     final icon = await _iconMap.future;
@@ -77,15 +75,19 @@ class HomeController with ChangeNotifier {
         icon: icon,
         onTap: () {
           _markersController.sink.add(id);
-          changeDialogEnabled(true);
-          // showModalBottomSheet(
-          //   context: context,
-          //   builder: (context) {
-          //     return Container(
-          //       child: Text('ModalSheet'),
-          //     );
-          //   },
-          // );
+          // showModalBottomSheet(context: context, builder: (context){
+          //   return Container(
+          //     child: Column(
+          //       children: [
+          //         Text('TITLE'),
+          //         Container(
+          //           height: 200,
+          //           width: 200,
+          //         ),
+          //       ],
+          //     ),
+          //   );
+          // });
         },
         onDragEnd: (newPosition) {
           //print(newPosition);
