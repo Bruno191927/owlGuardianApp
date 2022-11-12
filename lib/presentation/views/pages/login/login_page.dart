@@ -35,16 +35,15 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 40.0),
                 // Logo de la App
                 ColoredBox(
-                    color: AppColors.text.cyan.withOpacity(0.3),
+                    color: AppColors.cyan.withOpacity(0.3),
                     child: const SizedBox(width: 250.0, height: 200.0)),
                 const SizedBox(height: 40.0),
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text('INGRESAR',
-                      style: TextStyle(
-                          color: AppColors.text.rawText, fontSize: 30.0)),
+                      style: TextStyle(color: AppColors.white, fontSize: 30.0)),
                   const SizedBox(height: 8.0),
                   Text('Por favor, complete los siguientes campos:',
-                      style: TextStyle(color: AppColors.text.fieldForm))
+                      style: TextStyle(color: AppColors.white70))
                 ]),
                 const SizedBox(height: 40.0),
                 const CustomTextFieldForm(
@@ -66,16 +65,16 @@ class _LoginPageState extends State<LoginPage> {
                 TextButton(
                     onPressed: () {},
                     child: Text('¿Olvidaste la contraseña?',
-                        style: TextStyle(color: AppColors.text.cyan))),
+                        style: TextStyle(color: AppColors.cyan))),
                 const SizedBox(height: 20.0),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Text('¿Aún no tienes una cuenta?',
-                      style: TextStyle(color: AppColors.text.fieldForm)),
+                      style: TextStyle(color: AppColors.white70)),
                   TextButton(
                       onPressed: () => _loginController.register(),
                       child: Text('Registrarse',
-                          style: TextStyle(color: AppColors.text.cyan)))
+                          style: TextStyle(color: AppColors.cyan)))
                 ])
               ]))),
-      backgroundColor: AppColors.scaffold.background);
+      backgroundColor: AppColors.greyBackground);
 }
