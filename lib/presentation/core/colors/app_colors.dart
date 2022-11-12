@@ -5,6 +5,7 @@ class AppColors {
   static _Text text = _Text();
   static Color red = Colors.red;
   static Color transparent = Colors.transparent;
+  static Color orange = Colors.orange;
 }
 
 class _Scaffold {

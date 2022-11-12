@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
-import 'package:hackathon_app/presentation/core/globals/global_resources.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/custom_elevatedbutton_widget.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/custom_textfieldform_widget.dart';
 import 'package:hackathon_app/presentation/views/pages/login/login_page.dart';
@@ -42,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     style: TextStyle(color: AppColors.text.fieldForm)),
                 const SizedBox(height: 40.0),
                 Form(
-                    key: GlobalResources.registerFormKey,
+                    key: _registerController.formKey,
                     child: Wrap(runSpacing: 20.0, children: [
                       const CustomTextFieldForm(
                           text: 'Nombre completo',
@@ -67,7 +67,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           text: 'Confirmar contraseña',
                           icon: Icons.password_outlined,
                           inputType: TextInputType.visiblePassword,
-                          obscureText: true),
+                          obscureText: true,
+                          targetController:
+                              _registerController.passwordController1),
                     ]),
                     autovalidateMode: AutovalidateMode.onUserInteraction),
                 const SizedBox(height: 40.0),
@@ -75,6 +77,16 @@ class _RegisterPageState extends State<RegisterPage> {
                   text: 'Registrarse',
                   onPressed: () {
                     _registerController.submit();
+                    showModalBottomSheet(
+                      backgroundColor: AppColors.orange,
+                      context: context,
+                      builder: (context) {
+                        return Container(
+                          height: 300.0,
+                          child: Text('ModalSheet'),
+                        );
+                      },
+                    );
                   },
                 ),
                 const SizedBox(height: 40.0),
@@ -87,7 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               builder: (context) => const LoginPage()))),
                       child: Text('Ingresa aquí',
                           style: TextStyle(color: AppColors.text.cyan)))
-                ]),
+                ])
               ]))),
       backgroundColor: AppColors.scaffold.background);
 }

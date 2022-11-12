@@ -1,14 +1,17 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' show ChangeNotifier, Offset;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hackathon_app/presentation/core/routes/image_to_bytes.dart';
 import 'package:hackathon_app/presentation/core/styles/map/map_styles.dart';
-class HomeController with ChangeNotifier{
-  final Map<MarkerId,Marker> _markers = {};
 
-  final initialCameraPosition = const CameraPosition(target: LatLng(-11.925617, -76.674504),zoom: 15);
+class HomeController with ChangeNotifier {
+  final Map<MarkerId, Marker> _markers = {};
+
+  final initialCameraPosition =
+      const CameraPosition(target: LatLng(-11.925617, -76.674504), zoom: 15);
 
   final _iconMap = Completer<BitmapDescriptor>();
 
@@ -23,17 +26,16 @@ class HomeController with ChangeNotifier{
 
   StreamSubscription? _gpsSuscription;
 
-  HomeController(){
+  HomeController() {
     _init();
   }
 
-  void changeDialogEnabled(bool value){
+  void changeDialogEnabled(bool value) {
     _dialogEnabled = value;
     notifyListeners();
   }
 
-
-  Future<void> _init() async{
+  Future<void> _init() async {
     final value = await imageToBytes('assets/icon.png');
     final bitmap = BitmapDescriptor.fromBytes(value);
     _iconMap.complete(bitmap);
@@ -42,12 +44,10 @@ class HomeController with ChangeNotifier{
 
     _loading = false;
 
-    _gpsSuscription =  Geolocator.getServiceStatusStream().listen(
-      (status){
-        _gpsEnabled = status == ServiceStatus.enabled;
-        notifyListeners();
-      }
-    );
+    _gpsSuscription = Geolocator.getServiceStatusStream().listen((status) {
+      _gpsEnabled = status == ServiceStatus.enabled;
+      notifyListeners();
+    });
     notifyListeners();
   }
 
@@ -57,33 +57,39 @@ class HomeController with ChangeNotifier{
 
   Stream<String> get onMarkerTap => _markersController.stream;
 
-  void onMapCreated(GoogleMapController controller){
+  void onMapCreated(GoogleMapController controller) {
     controller.setMapStyle(mapStyle);
   }
 
   Future<void> turnOnGps() => Geolocator.openLocationSettings();
 
-  void onTap(LatLng position) async{
-
+  void onTap(LatLng position) async {
     changeDialogEnabled(false);
 
     final id = _markers.length.toString();
     final markerId = MarkerId(id);
     final icon = await _iconMap.future;
     final marker = Marker(
-      markerId: markerId,
-      position: position,
-      draggable: true,
-      anchor: const Offset(0.5,1),
-      icon: icon,
-      onTap: (){
-        _markersController.sink.add(id);
-        changeDialogEnabled(true);
-      },
-      onDragEnd: (newPosition){
-        //print(newPosition);
-      }
-    );
+        markerId: markerId,
+        position: position,
+        draggable: true,
+        anchor: const Offset(0.5, 1),
+        icon: icon,
+        onTap: () {
+          _markersController.sink.add(id);
+          changeDialogEnabled(true);
+          // showModalBottomSheet(
+          //   context: context,
+          //   builder: (context) {
+          //     return Container(
+          //       child: Text('ModalSheet'),
+          //     );
+          //   },
+          // );
+        },
+        onDragEnd: (newPosition) {
+          //print(newPosition);
+        });
     _markers[markerId] = marker;
     notifyListeners();
   }

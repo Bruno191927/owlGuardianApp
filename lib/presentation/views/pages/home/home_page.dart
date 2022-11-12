@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 import 'package:hackathon_app/presentation/views/pages/home/home_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +37,8 @@ class HomePage extends StatelessWidget {
                           myLocationButtonEnabled: false,
                           zoomControlsEnabled: false,
                           compassEnabled: false,
-                          initialCameraPosition:controller.initialCameraPosition,
+                          initialCameraPosition:
+                              controller.initialCameraPosition,
                           markers: controller.markers,
                           onTap: controller.onTap,
                         ),
@@ -52,20 +54,20 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     Center(
                                       child: Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
                                         width: size.width * 0.85,
                                         height: 50,
                                         decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:BorderRadius.circular(40),
-                                          boxShadow: const [
-                                            BoxShadow(
-                                              color: Colors.black26,
-                                              offset: Offset(1, 1),
-                                              blurRadius: 6
-                                            )
-                                          ]
-                                        ),
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(40),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  color: Colors.black26,
+                                                  offset: Offset(1, 1),
+                                                  blurRadius: 6)
+                                            ]),
                                         child: Row(
                                           children: [
                                             SizedBox(
@@ -106,15 +108,17 @@ class HomePage extends StatelessWidget {
                                         height: 60,
                                         width: 60,
                                         decoration: BoxDecoration(
-                                          color: (controller.dialogEnabled)?Colors.white:Colors.red,
-                                          borderRadius: BorderRadius.circular(70),
-                                          boxShadow: const [
-                                            BoxShadow(
-                                                color: Colors.black26,
-                                                offset: Offset(1, 1),
-                                                blurRadius: 6)
-                                          ]
-                                        ),
+                                            color: (controller.dialogEnabled)
+                                                ? Colors.white
+                                                : Colors.red,
+                                            borderRadius:
+                                                BorderRadius.circular(70),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  color: Colors.black26,
+                                                  offset: Offset(1, 1),
+                                                  blurRadius: 6)
+                                            ]),
                                       ),
                                     )
                                   ],
@@ -150,6 +154,17 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  buildBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(height: 300.0);
+      },
+      backgroundColor: AppColors.orange,
+      barrierColor: AppColors.red,
     );
   }
 }
