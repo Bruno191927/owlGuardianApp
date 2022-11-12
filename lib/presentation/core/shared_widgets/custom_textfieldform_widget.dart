@@ -8,6 +8,7 @@ class CustomTextFieldForm extends StatefulWidget {
   final IconData icon;
   final TextInputType inputType;
   final bool obscureText;
+  final TextEditingController? controller;
   const CustomTextFieldForm({
     Key? key,
     this.margin = 15.0,
@@ -15,6 +16,7 @@ class CustomTextFieldForm extends StatefulWidget {
     this.icon = Icons.crop_square,
     this.inputType = TextInputType.text,
     this.obscureText = false,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -28,6 +30,7 @@ class _CustomTextFieldFormState extends State<CustomTextFieldForm> {
   Widget build(BuildContext context) => Container(
       margin: EdgeInsets.symmetric(horizontal: widget.margin),
       child: TextFormField(
+        controller: widget.controller,
         decoration: InputDecoration(
             labelText: widget.text,
             labelStyle: TextStyle(color: AppColors.text.fieldForm),
@@ -43,8 +46,14 @@ class _CustomTextFieldFormState extends State<CustomTextFieldForm> {
                         : Icon(Icons.visibility_outlined,
                             color: AppColors.text.fieldForm))
                 : null,
+            errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: AppColors.red),
+                borderRadius: BorderRadius.circular(16.0)),
             focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: AppColors.text.cyan),
+                borderRadius: BorderRadius.circular(16.0)),
+            focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: AppColors.red),
                 borderRadius: BorderRadius.circular(16.0)),
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: AppColors.transparent))),
