@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
+import 'package:hackathon_app/presentation/core/utils/my_validators.dart';
 
 class CustomTextFieldForm extends StatefulWidget {
   final double margin;
@@ -7,15 +8,13 @@ class CustomTextFieldForm extends StatefulWidget {
   final IconData icon;
   final TextInputType inputType;
   final bool obscureText;
-  final VoidCallback? onTap;
   const CustomTextFieldForm({
     Key? key,
     this.margin = 15.0,
-    this.text = '',
+    this.text = "",
     this.icon = Icons.crop_square,
     this.inputType = TextInputType.text,
     this.obscureText = false,
-    this.onTap,
   }) : super(key: key);
 
   @override
@@ -52,6 +51,13 @@ class _CustomTextFieldFormState extends State<CustomTextFieldForm> {
         keyboardType: widget.inputType,
         style: TextStyle(color: AppColors.text.rawText),
         obscureText: widget.obscureText ? _isPressed : false,
-        onTap: widget.onTap,
+        validator: (value) => _errorSelection(widget.inputType.index, value!),
       ));
+
+  String? _errorSelection(int input, String text) {
+    if (input == 3) return MyValidators.validatePhoneNumber(text);
+    if (input == 5) return MyValidators.validateEmail(text);
+    if (input == 7) return MyValidators.validatePassword(text);
+    if (input == 8) return MyValidators.validateFullName(text);
+  }
 }

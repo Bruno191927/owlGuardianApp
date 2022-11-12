@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final double width;
   final String text;
-  const CustomElevatedButton({Key? key, this.width = 250.0, this.text = ''})
+  final VoidCallback? onPressed;
+  const CustomElevatedButton(
+      {Key? key, this.width = 250.0, this.text = '', this.onPressed})
       : super(key: key);
 
   @override
@@ -11,12 +14,12 @@ class CustomElevatedButton extends StatelessWidget {
       width: width,
       height: 50.0,
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-              primary: Colors.cyanAccent,
-              shadowColor: Colors.transparent,
+              primary: AppColors.text.cyan,
+              shadowColor: AppColors.transparent,
               elevation: 0,
               shape: const StadiumBorder()),
           child: Text(text,
-              style: const TextStyle(color: Colors.black, fontSize: 22.0))));
+              style: TextStyle(color: AppColors.text.black, fontSize: 22.0))));
 }

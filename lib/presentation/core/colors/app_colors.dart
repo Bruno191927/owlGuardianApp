@@ -12,6 +12,7 @@ class _Scaffold {
 
 class _Text {
   Color rawText = Colors.white;
+  Color black = Colors.black;
   Color cyan = Colors.cyanAccent;
   Color fieldForm = Colors.white70;
 }
