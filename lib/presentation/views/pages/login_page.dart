@@ -5,6 +5,7 @@ import 'package:hackathon_app/presentation/core/shared_widgets/custom_textfieldf
 import 'package:hackathon_app/presentation/views/pages/register_page.dart';
 
 class LoginPage extends StatelessWidget {
+  static const routeName = "login";
   const LoginPage({Key? key}) : super(key: key);
 
   @override
@@ -51,9 +52,7 @@ class LoginPage extends StatelessWidget {
                   Text('¿Aún no tienes una cuenta?',
                       style: TextStyle(color: AppColors.text.fieldForm)),
                   TextButton(
-                      onPressed: () => Navigator.of(context).push(
-                          (MaterialPageRoute(
-                              builder: (context) => const RegisterPage()))),
+                      onPressed: () {Navigator.pushNamed(context, RegisterPage.routeName);},
                       child: Text('Registrarse',
                           style: TextStyle(color: AppColors.text.cyan)))
                 ])

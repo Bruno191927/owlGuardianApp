@@ -5,6 +5,7 @@ import 'package:hackathon_app/presentation/core/shared_widgets/custom_textfieldf
 import 'package:hackathon_app/presentation/views/pages/login_page.dart';
 
 class RegisterPage extends StatelessWidget {
+  static const routeName = "register";
   const RegisterPage({Key? key}) : super(key: key);
 
   @override
@@ -63,7 +64,7 @@ class RegisterPage extends StatelessWidget {
                               builder: (context) => const LoginPage()))),
                       child: Text('Ingresa aquí',
                           style: TextStyle(color: AppColors.text.cyan)))
-                ])
+                ]),
               ]))),
       backgroundColor: AppColors.scaffold.background);
 }
