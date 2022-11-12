@@ -9,15 +9,17 @@ class CustomTextFieldForm extends StatefulWidget {
   final TextInputType inputType;
   final bool obscureText;
   final TextEditingController? controller;
-  const CustomTextFieldForm({
-    Key? key,
-    this.margin = 15.0,
-    this.text = "",
-    this.icon = Icons.crop_square,
-    this.inputType = TextInputType.text,
-    this.obscureText = false,
-    this.controller,
-  }) : super(key: key);
+  final TextEditingController? targetController;
+  const CustomTextFieldForm(
+      {Key? key,
+      this.margin = 15.0,
+      this.text = "",
+      this.icon = Icons.crop_square,
+      this.inputType = TextInputType.text,
+      this.obscureText = false,
+      this.controller,
+      this.targetController})
+      : super(key: key);
 
   @override
   State<CustomTextFieldForm> createState() => _CustomTextFieldFormState();
@@ -66,7 +68,10 @@ class _CustomTextFieldFormState extends State<CustomTextFieldForm> {
   String? _errorSelection(int input, String text) {
     if (input == 3) return MyValidators.validatePhoneNumber(text);
     if (input == 5) return MyValidators.validateEmail(text);
-    if (input == 7) return MyValidators.validatePassword(text);
+    if (input == 7) {
+      return MyValidators.validatePassword(
+          text, widget.targetController ?? widget.controller!);
+    }
     if (input == 8) return MyValidators.validateFullName(text);
   }
 }

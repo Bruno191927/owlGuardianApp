@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class MyValidators {
   static String? validateEmail(String text) {
     if (text.isEmpty) {
@@ -11,7 +13,7 @@ class MyValidators {
     return null;
   }
 
-  static String? validatePassword(String text) {
+  static String? validatePassword(String text, TextEditingController target) {
     if (text.isEmpty) {
       return 'Ingrese una contraseña';
     }
@@ -30,6 +32,9 @@ class MyValidators {
     // if (text.contains(RegExp(r'[#?!@/$%^&*-]'))) {
     //   return 'La contraseña debe tener algún caracter especial';
     // }
+    if (text != target.text) {
+      return 'Las contraseñas no coinciden';
+    }
     return null;
   }
 
