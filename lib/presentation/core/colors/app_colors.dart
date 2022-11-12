@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   static _Scaffold scaffold = _Scaffold();
   static _Text text = _Text();
+  static Color red = Colors.red;
   static Color transparent = Colors.transparent;
 }
 
