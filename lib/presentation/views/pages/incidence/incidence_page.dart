@@ -5,8 +5,13 @@ import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/custom_datetimebutton_widget.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/custom_dropdownbutton_widget.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/custom_elevatedbutton_widget.dart';
+import 'package:hackathon_app/presentation/core/shared_widgets/custom_image_selector_widget.dart';
+import 'package:hackathon_app/presentation/core/shared_widgets/custom_obtaine_image_selector.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/custom_textfieldform_widget.dart';
+import 'package:hackathon_app/presentation/core/utils/extras.dart';
+import 'package:hackathon_app/presentation/logic/provider/image_provider.dart';
 import 'package:hackathon_app/presentation/views/pages/incidence/incidence_controller.dart';
+import 'package:provider/provider.dart';
 
 class IncidencePage extends StatefulWidget {
   static const routeName = "incidence";
@@ -38,6 +43,7 @@ class _IncidencePageState extends State<IncidencePage> {
 
   @override
   Widget build(BuildContext context) {
+    final imageDataProvider = Provider.of<ImageDataProvider>(context);
     return WillPopScope(
       child: Scaffold(
         appBar: AppBar(
@@ -104,25 +110,23 @@ class _IncidencePageState extends State<IncidencePage> {
                                     }))
                           ])),
                   const SizedBox(height: 20.0),
-                  Ink.image(
-                      image: _imageUrl != null
-                          ? FileImage(_imageUrl!) as ImageProvider
-                          : const AssetImage('assets/no_image.png'),
-                      fit: BoxFit.cover,
-                      width: 250.0,
-                      height: 150.0,
-                      child: InkWell(
-                          onTap: () async {
-                            final File? _newImageUrl =
-                                await _incidenceController.pickImge() ??
-                                    _imageUrl;
-                            setState(() => _imageUrl = _newImageUrl);
-                          },
-                          splashColor: AppColors.orange.withOpacity(0.3))),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: 
+                    imageDataProvider.imgInfo == null
+                    ?CustomImageSelectorWidget(
+                      function: () async{
+                        final fileData = await Extras.pickImage(false);
+                        imageDataProvider.addImgInfo(fileData);
+                      },
+                    ):CustomObtainedImageSelector(provider: imageDataProvider)
+                  ),
                   const SizedBox(height: 40.0),
                   CustomElevatedButton(
                     text: "Agregar",
-                    onPressed: () {},
+                    onPressed: () {
+                      _incidenceController.sumbit(imageDataProvider);
+                    },
                     buttonColor: AppColors.orange,
                     textColor: AppColors.white,
                   ),

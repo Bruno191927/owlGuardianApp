@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:hackathon_app/data/datasource/local/auth.dart';
 import 'package:hackathon_app/data/models/incident_model.dart';
 
 class IncidentApi{
@@ -15,8 +16,9 @@ class IncidentApi{
 
 
   Future<bool> createIncident({required IncidentModel model}) async{
+    final token = await Auth.instance.accessToken;
     try {
-      final Response response = await _dio.post('/',data: model.toJson());
+      final Response response = await _dio.post('/',data: model.toJson(),options: Options(headers: {"Auth":token}));
       if(response.statusCode == 200){
         return true;
       }
@@ -26,9 +28,24 @@ class IncidentApi{
     }
   }
 
-  Future<bool> updateIncident({required IncidentModel model}) async {
+  Future<List<IncidentModel>> getIncidents() async{
+    final token = await Auth.instance.accessToken;
     try {
-      final Response response = await _dio.put('/',data: model.toJson());
+      final Response response = await _dio.get('/',options: Options(headers: {"Auth":token}));
+      if(response.statusCode == 200){
+        final incidents = IncidentsModel.fromJsonList(response.data);
+        return incidents.items;
+      }
+      return [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<bool> updateIncident({required IncidentModel model}) async {
+    final token = await Auth.instance.accessToken;
+    try {
+      final Response response = await _dio.put('/',data: model.toJson(),options: Options(headers: {"Auth":token}));
       if(response.statusCode == 200){
         return true;
       }

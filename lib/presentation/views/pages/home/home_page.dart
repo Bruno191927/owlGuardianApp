@@ -3,6 +3,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 import 'package:hackathon_app/presentation/views/pages/home/home_controller.dart';
 import 'package:hackathon_app/presentation/views/pages/notifications/notifications_page.dart';
+import 'package:hackathon_app/presentation/views/pages/profile/profile_page.dart';
+import 'package:hackathon_app/presentation/views/pages/settings/settings_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {

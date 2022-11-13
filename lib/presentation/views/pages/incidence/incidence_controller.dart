@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:hackathon_app/presentation/logic/provider/image_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -59,4 +61,17 @@ class IncidenceController {
                     onPressed: () => Navigator.pop(context, true),
                     child: const Text('Sí', style: TextStyle(fontSize: 18.0)))
               ]));
+
+
+  void sumbit(ImageDataProvider provider) async{
+    //
+    final mP = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+
+    if(provider.imgInfo != null){
+      
+    }
+    else{
+
+    }
+  }
 }
