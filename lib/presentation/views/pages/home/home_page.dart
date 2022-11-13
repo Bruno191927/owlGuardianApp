@@ -110,7 +110,9 @@ class HomePage extends StatelessWidget {
                                               child: IconButton(
                                                 icon:
                                                     const Icon(Icons.settings),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  controller.settings(context);
+                                                },
                                               ),
                                             ),
                                           ],
