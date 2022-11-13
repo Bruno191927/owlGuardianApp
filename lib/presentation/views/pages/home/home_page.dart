@@ -79,16 +79,16 @@ class HomePage extends StatelessWidget {
                                               child: IconButton(
                                                 icon: const Icon(
                                                     Icons.podcasts_outlined),
-                                                onPressed: () {
-
-                                                },
+                                                onPressed: () {},
                                               ),
                                             ),
                                             SizedBox(
                                               width: size.width * 0.15,
                                               child: IconButton(
                                                 icon: const Icon(Icons.person),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  controller.profile(context);
+                                                },
                                               ),
                                             ),
                                             const Spacer(),
@@ -98,7 +98,10 @@ class HomePage extends StatelessWidget {
                                                 icon: const Icon(
                                                     Icons.notifications),
                                                 onPressed: () {
-                                                    Navigator.pushNamed(context, NotificationsPage.routeName);
+                                                  Navigator.pushNamed(
+                                                      context,
+                                                      NotificationsPage
+                                                          .routeName);
                                                 },
                                               ),
                                             ),
