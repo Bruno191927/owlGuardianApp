@@ -16,6 +16,7 @@ class CustomTextFieldForm extends StatefulWidget {
   final Color enabledBorderColor;
   final VoidCallback? onTap;
   final String? initialValue;
+  final bool readOnly;
   const CustomTextFieldForm({
     Key? key,
     this.margin = 15.0,
@@ -31,6 +32,7 @@ class CustomTextFieldForm extends StatefulWidget {
     this.enabledBorderColor = Colors.transparent,
     this.onTap,
     this.initialValue,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -78,6 +80,7 @@ class _CustomTextFieldFormState extends State<CustomTextFieldForm> {
         obscureText: widget.obscureText ? _isPressed : false,
         onTap: () => widget.onTap,
         validator: (value) => _errorSelection(widget.inputType.index, value!),
+        readOnly: widget.readOnly,
       ));
 
   String? _errorSelection(int input, String text) {
