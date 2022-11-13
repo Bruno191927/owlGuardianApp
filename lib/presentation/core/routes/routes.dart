@@ -16,7 +16,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   RequestPermissionPage.routeName: (_) => const RequestPermissionPage(),
   SplashPage.routeName: (_) => const SplashPage(),
   IncidencePage.routeName: (_) => const IncidencePage(),
-  NotificationsPage.routeName : (_) => const NotificationsPage(),
+  NotificationsPage.routeName: (_) => const NotificationsPage(),
+  ProfilePage.routeName: (_) => const ProfilePage(),
   SettingsPage.routeName: (_) => const SettingsPage(),
-  ProfilePage.routeName: (_) => const ProfilePage()
 };

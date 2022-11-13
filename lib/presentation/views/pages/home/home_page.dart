@@ -16,9 +16,6 @@ class HomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return ChangeNotifierProvider<HomeController>(
       create: (_) {
-
-
-
         final controller = HomeController();
         controller.onMarkerTap.listen((String id) {
           //print("Got to $id");
@@ -44,7 +41,8 @@ class HomePage extends StatelessWidget {
                           myLocationButtonEnabled: false,
                           zoomControlsEnabled: false,
                           compassEnabled: false,
-                          initialCameraPosition: controller.initialCameraPosition,
+                          initialCameraPosition:
+                              controller.initialCameraPosition,
                           markers: controller.markers,
                           onTap: (LatLng position) {
                             controller.onTap(position, context);
@@ -115,7 +113,7 @@ class HomePage extends StatelessWidget {
                                                 icon:
                                                     const Icon(Icons.settings),
                                                 onPressed: () {
-                                                  Navigator.pushNamed(context, SettingsPage.routeName);
+                                                  controller.settings(context);
                                                 },
                                               ),
                                             ),

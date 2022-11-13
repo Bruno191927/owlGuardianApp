@@ -8,6 +8,7 @@ import 'package:hackathon_app/presentation/core/shared_widgets/modal_bottom_shee
 import 'package:hackathon_app/presentation/core/styles/map/map_styles.dart';
 import 'package:hackathon_app/presentation/views/pages/incidence/incidence_page.dart';
 import 'package:hackathon_app/presentation/views/pages/profile/profile_page.dart';
+import 'package:hackathon_app/presentation/views/pages/settings/settings_page.dart';
 
 class HomeController with ChangeNotifier {
   final Map<MarkerId, Marker> _markers = {};
@@ -65,12 +66,16 @@ class HomeController with ChangeNotifier {
     controller.setMapStyle(mapStyle);
   }
 
+  void profile(BuildContext context) {
+    Navigator.pushNamed(context, ProfilePage.routeName);
+  }
+
   void incidence(BuildContext context) {
     Navigator.pushNamed(context, IncidencePage.routeName);
   }
 
-  void profile(BuildContext context) {
-    Navigator.pushNamed(context, ProfilePage.routeName);
+  void settings(BuildContext context) {
+    Navigator.pushNamed(context, SettingsPage.routeName);
   }
 
   Future<void> turnOnGps() => Geolocator.openLocationSettings();
