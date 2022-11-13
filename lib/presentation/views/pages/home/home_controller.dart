@@ -12,7 +12,8 @@ import 'package:hackathon_app/presentation/views/pages/settings/settings_page.da
 
 class HomeController with ChangeNotifier {
   final Map<MarkerId, Marker> _markers = {};
-  CameraPosition initialCameraPosition = const CameraPosition(target: LatLng(-11.925617, -76.674504), zoom: 15);
+  CameraPosition initialCameraPosition =
+      const CameraPosition(target: LatLng(-11.925617, -76.674504), zoom: 15);
 
   final _iconMap = Completer<BitmapDescriptor>();
 
@@ -37,7 +38,7 @@ class HomeController with ChangeNotifier {
   }
 
   Future<void> _init() async {
-    final value = await imageToBytes('assets/icon.png');
+    final value = await imageToBytes('assets/location_pin_icon.png');
     final bitmap = BitmapDescriptor.fromBytes(value);
     _iconMap.complete(bitmap);
 
@@ -50,8 +51,10 @@ class HomeController with ChangeNotifier {
       notifyListeners();
     });
 
-    final myPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
-    initialCameraPosition = CameraPosition(target: LatLng(myPosition.latitude, myPosition.longitude), zoom: 15);
+    final myPosition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best);
+    initialCameraPosition = CameraPosition(
+        target: LatLng(myPosition.latitude, myPosition.longitude), zoom: 15);
 
     notifyListeners();
   }
