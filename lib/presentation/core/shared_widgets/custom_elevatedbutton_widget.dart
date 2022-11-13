@@ -23,10 +23,7 @@ class CustomElevatedButton extends StatelessWidget {
       child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-              primary: buttonColor,
-              shadowColor: AppColors.transparent,
-              elevation: 0,
-              shape: const StadiumBorder()),
+              primary: buttonColor, elevation: 0, shape: const StadiumBorder()),
           child:
               Text(text, style: TextStyle(color: textColor, fontSize: 22.0))));
 }
