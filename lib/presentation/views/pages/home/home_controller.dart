@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' show ChangeNotifier, Offset;
 import 'package:geolocator/geolocator.dart';
@@ -11,9 +10,7 @@ import 'package:hackathon_app/presentation/views/pages/incidence/incidence_page.
 
 class HomeController with ChangeNotifier {
   final Map<MarkerId, Marker> _markers = {};
-
-  final initialCameraPosition =
-      const CameraPosition(target: LatLng(-11.925617, -76.674504), zoom: 15);
+  CameraPosition initialCameraPosition = const CameraPosition(target: LatLng(-11.925617, -76.674504), zoom: 15);
 
   final _iconMap = Completer<BitmapDescriptor>();
 
@@ -50,6 +47,10 @@ class HomeController with ChangeNotifier {
       _gpsEnabled = status == ServiceStatus.enabled;
       notifyListeners();
     });
+
+    final myPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    initialCameraPosition = CameraPosition(target: LatLng(myPosition.latitude, myPosition.longitude), zoom: 15);
+
     notifyListeners();
   }
 

@@ -3,6 +3,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 import 'package:hackathon_app/presentation/views/pages/home/home_controller.dart';
 import 'package:hackathon_app/presentation/views/pages/notifications/notifications_page.dart';
+import 'package:hackathon_app/presentation/views/pages/profile/profile_page.dart';
+import 'package:hackathon_app/presentation/views/pages/settings/settings_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,6 +16,9 @@ class HomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return ChangeNotifierProvider<HomeController>(
       create: (_) {
+
+        
+
         final controller = HomeController();
         controller.onMarkerTap.listen((String id) {
           //print("Got to $id");
@@ -39,8 +44,7 @@ class HomePage extends StatelessWidget {
                           myLocationButtonEnabled: false,
                           zoomControlsEnabled: false,
                           compassEnabled: false,
-                          initialCameraPosition:
-                              controller.initialCameraPosition,
+                          initialCameraPosition: controller.initialCameraPosition,
                           markers: controller.markers,
                           onTap: (LatLng position) {
                             controller.onTap(position, context);
@@ -88,7 +92,9 @@ class HomePage extends StatelessWidget {
                                               width: size.width * 0.15,
                                               child: IconButton(
                                                 icon: const Icon(Icons.person),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Navigator.pushNamed(context, ProfilePage.routeName);
+                                                },
                                               ),
                                             ),
                                             const Spacer(),
@@ -107,7 +113,9 @@ class HomePage extends StatelessWidget {
                                               child: IconButton(
                                                 icon:
                                                     const Icon(Icons.settings),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Navigator.pushNamed(context, SettingsPage.routeName);
+                                                },
                                               ),
                                             ),
                                           ],
