@@ -5,7 +5,6 @@ class CustomDropDownButton extends StatelessWidget {
   final double margin;
   final List<String> items;
   final String text;
-  final IconData icon;
   final Color textFormColor;
   final Color borderColor;
   const CustomDropDownButton({
@@ -13,7 +12,6 @@ class CustomDropDownButton extends StatelessWidget {
     this.margin = 2.0,
     required this.items,
     this.text = "",
-    this.icon = Icons.crop_square,
     this.textFormColor = Colors.white70,
     this.borderColor = Colors.white70,
   }) : super(key: key);
@@ -26,23 +24,23 @@ class CustomDropDownButton extends StatelessWidget {
           child: DropdownButtonFormField(
             items: items.map(buildMenuItem).toList(),
             onChanged: (value) {},
-            decoration: InputDecoration(
-                labelText: text,
-                labelStyle: TextStyle(color: textFormColor),
-                prefixIcon: Icon(icon, color: textFormColor),
-                suffixIcon:
-                    Icon(Icons.keyboard_arrow_down, color: textFormColor),
-                errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.red),
-                    borderRadius: BorderRadius.circular(16.0)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: borderColor),
-                    borderRadius: BorderRadius.circular(16.0)),
-                focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.red),
-                    borderRadius: BorderRadius.circular(16.0)),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.transparent))),
+            // decoration: InputDecoration(
+            //     labelText: text,
+            //     labelStyle: TextStyle(color: textFormColor),
+            //     prefixIcon:
+            //         Icon(Icons.keyboard_arrow_down, color: textFormColor),
+            //     errorBorder: OutlineInputBorder(
+            //         borderSide: BorderSide(color: AppColors.red),
+            //         borderRadius: BorderRadius.circular(16.0)),
+            //     focusedBorder: OutlineInputBorder(
+            //         borderSide: BorderSide(color: borderColor),
+            //         borderRadius: BorderRadius.circular(16.0)),
+            //     focusedErrorBorder: OutlineInputBorder(
+            //         borderSide: BorderSide(color: AppColors.red),
+            //         borderRadius: BorderRadius.circular(16.0)),
+            //     enabledBorder: OutlineInputBorder(
+            //         borderSide: BorderSide(color: AppColors.transparent))),
+            isExpanded: true,
           ),
         ));
   }
