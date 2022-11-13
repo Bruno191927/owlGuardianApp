@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
     return ChangeNotifierProvider<HomeController>(
       create: (_) {
 
-        
+
 
         final controller = HomeController();
         controller.onMarkerTap.listen((String id) {
@@ -83,9 +83,7 @@ class HomePage extends StatelessWidget {
                                               child: IconButton(
                                                 icon: const Icon(
                                                     Icons.podcasts_outlined),
-                                                onPressed: () {
-
-                                                },
+                                                onPressed: () {},
                                               ),
                                             ),
                                             SizedBox(
@@ -93,7 +91,7 @@ class HomePage extends StatelessWidget {
                                               child: IconButton(
                                                 icon: const Icon(Icons.person),
                                                 onPressed: () {
-                                                  Navigator.pushNamed(context, ProfilePage.routeName);
+                                                  controller.profile(context);
                                                 },
                                               ),
                                             ),
@@ -104,7 +102,10 @@ class HomePage extends StatelessWidget {
                                                 icon: const Icon(
                                                     Icons.notifications),
                                                 onPressed: () {
-                                                    Navigator.pushNamed(context, NotificationsPage.routeName);
+                                                  Navigator.pushNamed(
+                                                      context,
+                                                      NotificationsPage
+                                                          .routeName);
                                                 },
                                               ),
                                             ),

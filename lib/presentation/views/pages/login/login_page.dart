@@ -35,38 +35,43 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 40.0),
                 // Logo de la App
                 Container(
-                  width: 200,
-                  height: 200,
+                  width: 220,
+                  height: 220,
                   decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/logo.png')
-                    )
-                  ),
+                      image: DecorationImage(
+                          image: AssetImage('assets/logo.png'))),
                 ),
-                const SizedBox(height: 40.0),
+                const SizedBox(height: 20.0),
                 Form(
                   key: _loginController.formKey,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('OWL GUARDIAN',style: TextStyle(color: AppColors.cyan, fontSize: 30.0,fontWeight: FontWeight.bold)),
-                        ],
-                      ),
+                  child: Column(children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('OWL GUARDIAN',
+                            style: TextStyle(
+                                color: AppColors.orange,
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.bold)),
+                      ],
+                    ),
                     const SizedBox(height: 8.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Por favor, complete los siguientes campos:',style: TextStyle(color: AppColors.white70))
+                        Text('Por favor, complete los siguientes campos:',
+                            style: TextStyle(color: AppColors.grey))
                       ],
                     ),
-                    const SizedBox(height: 40.0),
+                    const SizedBox(height: 50.0),
                     CustomTextFieldForm(
                       text: 'Correo eletrónico',
                       icon: Icons.email_outlined,
                       inputType: TextInputType.emailAddress,
                       controller: _loginController.emailController,
+                      textColor: AppColors.black,
+                      textFormColor: AppColors.grey,
+                      borderColor: AppColors.orange,
                     ),
                     const SizedBox(height: 20.0),
                     CustomTextFieldForm(
@@ -75,32 +80,32 @@ class _LoginPageState extends State<LoginPage> {
                       inputType: TextInputType.visiblePassword,
                       obscureText: true,
                       controller: _loginController.passwordController,
+                      textColor: AppColors.black,
+                      textFormColor: AppColors.grey,
+                      borderColor: AppColors.orange,
                     ),
                     const SizedBox(height: 40.0),
                     CustomElevatedButton(
                       text: 'Iniciar sesión',
                       onPressed: () => _loginController.submit(),
+                      buttonColor: AppColors.orange,
+                      textColor: AppColors.white,
                     ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text('¿Olvidaste la contraseña?',
-                        style: TextStyle(color: AppColors.cyan)
-                      )
-                    ),
-                    const SizedBox(height: 20.0),
+                    // TextButton(
+                    //     onPressed: () {},
+                    //     child: Text('¿Olvidaste la contraseña?',
+                    //         style: TextStyle(color: AppColors.orange))),
+                    const SizedBox(height: 25.0),
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       Text('¿Aún no tienes una cuenta?',
-                          style: TextStyle(color: AppColors.white70)),
+                          style: TextStyle(color: AppColors.grey)),
                       TextButton(
                           onPressed: () => _loginController.register(),
                           child: Text('Registrarse',
-                              style: TextStyle(color: AppColors.cyan)))
+                              style: TextStyle(color: AppColors.orange)))
                     ])
                   ]),
                 ),
-                
-                
-                
               ]))),
-      backgroundColor: AppColors.greyBackground);
+      backgroundColor: AppColors.white);
 }
