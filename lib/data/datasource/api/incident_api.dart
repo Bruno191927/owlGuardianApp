@@ -1,18 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:hackathon_app/data/datasource/local/auth.dart';
 import 'package:hackathon_app/data/models/incident_model.dart';
+import 'package:hackathon_app/presentation/core/enviroment_config/enviroment_config.dart';
 
 class IncidentApi{
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: '$backendHost/incident',
+      baseUrl: '$backendHost/incidents',
       contentType: Headers.jsonContentType,
       responseType: ResponseType.json,
       validateStatus: (_) => true,
     )
   );
-
-  static get backendHost => null;
 
 
   Future<bool> createIncident({required IncidentModel model}) async{

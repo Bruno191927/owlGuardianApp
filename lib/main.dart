@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_app/presentation/core/routes/routes.dart';
 import 'package:hackathon_app/presentation/logic/provider/image_provider.dart';
+import 'package:hackathon_app/presentation/logic/provider/incident_provider.dart';
 import 'package:hackathon_app/presentation/views/pages/splash_login/splash_login_page.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(lazy: false,create: (_) => ImageDataProvider()),
+        ChangeNotifierProvider(lazy: false,create: (_) => IncidentProvider()),
       ],
       child: MaterialApp(
         home: const SplashLoginPage(),
