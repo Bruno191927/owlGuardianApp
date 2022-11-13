@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final double width;

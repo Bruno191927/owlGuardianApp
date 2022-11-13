@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' show ChangeNotifier, Offset;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 import 'package:hackathon_app/presentation/core/routes/image_to_bytes.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/modal_bottom_sheet_widget.dart';
 import 'package:hackathon_app/presentation/core/styles/map/map_styles.dart';

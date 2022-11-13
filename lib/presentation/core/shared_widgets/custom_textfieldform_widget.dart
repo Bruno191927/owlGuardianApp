@@ -13,6 +13,7 @@ class CustomTextFieldForm extends StatefulWidget {
   final Color textColor;
   final Color textFormColor;
   final Color borderColor;
+  final Color enabledBorderColor;
   final VoidCallback? onTap;
   final String? initialValue;
   const CustomTextFieldForm({
@@ -27,6 +28,7 @@ class CustomTextFieldForm extends StatefulWidget {
     this.textColor = Colors.white,
     this.textFormColor = Colors.white70,
     this.borderColor = Colors.cyanAccent,
+    this.enabledBorderColor = Colors.transparent,
     this.onTap,
     this.initialValue,
   }) : super(key: key);
@@ -36,7 +38,6 @@ class CustomTextFieldForm extends StatefulWidget {
 }
 
 class _CustomTextFieldFormState extends State<CustomTextFieldForm> {
-  DateTime _datetime = DateTime.now();
   bool _isPressed = true;
 
   @override
@@ -44,9 +45,7 @@ class _CustomTextFieldFormState extends State<CustomTextFieldForm> {
       margin: EdgeInsets.symmetric(horizontal: widget.margin),
       child: TextFormField(
         controller: widget.controller,
-        initialValue: widget.inputType.index == 4
-            ? "${_datetime.year}-${_datetime.month}-${_datetime.day} ${_datetime.hour}:${_datetime.minute}"
-            : widget.initialValue,
+        initialValue: widget.initialValue,
         decoration: InputDecoration(
             labelText: widget.text,
             labelStyle: TextStyle(color: widget.textFormColor),
@@ -72,13 +71,12 @@ class _CustomTextFieldFormState extends State<CustomTextFieldForm> {
                 borderSide: BorderSide(color: AppColors.red),
                 borderRadius: BorderRadius.circular(16.0)),
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.transparent))),
-        keyboardType:
-            widget.inputType.index == 4 ? TextInputType.none : widget.inputType,
+                borderSide: BorderSide(color: widget.enabledBorderColor),
+                borderRadius: BorderRadius.circular(16.0))),
+        keyboardType: widget.inputType,
         style: TextStyle(color: widget.textColor),
         obscureText: widget.obscureText ? _isPressed : false,
-        onTap: () async =>
-            widget.inputType.index == 4 ? await pickDateTime() : widget.onTap,
+        onTap: () => widget.onTap,
         validator: (value) => _errorSelection(widget.inputType.index, value!),
       ));
 
@@ -91,24 +89,4 @@ class _CustomTextFieldFormState extends State<CustomTextFieldForm> {
     }
     if (input == 8) return MyValidators.validateFullName(text);
   }
-
-  Future pickDateTime() async {
-    DateTime? date = await pickDate();
-    if (date == null) return;
-    TimeOfDay? time = await pickTime();
-    if (time == null) return;
-    final dateTime =
-        DateTime(date.year, date.month, date.day, time.hour, time.minute);
-    setState(() => _datetime = dateTime);
-  }
-
-  Future<DateTime?> pickDate() => showDatePicker(
-      context: context,
-      initialDate: _datetime,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2100));
-
-  Future<TimeOfDay?> pickTime() => showTimePicker(
-      context: context,
-      initialTime: TimeOfDay(hour: _datetime.hour, minute: _datetime.minute));
 }
