@@ -70,7 +70,7 @@ class IncidenceController {
       id: "",
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      lat: myPosition.longitude,
+      lat: myPosition.latitude,
       timeOfIncident:incidentProvider.currentDate.toUtc().toString().substring(0,11)+incidentProvider.currentTime.hour.toString()+":"+incidentProvider.currentTime.minute.toString(),
       image: (modelPhoto != null)?modelPhoto:null,
       description: descriptionController.text,
