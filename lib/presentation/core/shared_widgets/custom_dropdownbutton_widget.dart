@@ -3,11 +3,13 @@ import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 
 class CustomDropDownButton extends StatelessWidget {
   final double margin;
+  final Function(String?)? onChanged;
   final List<String> items;
   final String text;
   const CustomDropDownButton({
     Key? key,
     this.margin = 15.0,
+    this.onChanged,
     required this.items,
     this.text = "",
   }) : super(key: key);
@@ -19,7 +21,7 @@ class CustomDropDownButton extends StatelessWidget {
         child: DropdownButtonHideUnderline(
           child: DropdownButtonFormField(
             items: items.map(buildMenuItem).toList(),
-            onChanged: (value) {},
+            onChanged: onChanged,
             decoration: InputDecoration(
                 labelText: text,
                 labelStyle: TextStyle(color: AppColors.grey),

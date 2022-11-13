@@ -1,16 +1,23 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hackathon_app/data/datasource/api/cloudinary_api.dart';
+import 'package:hackathon_app/data/datasource/api/incident_api.dart';
+import 'package:hackathon_app/data/models/incident_model.dart';
+import 'package:hackathon_app/data/models/photo_model.dart';
+import 'package:hackathon_app/data/repositori_impl/incident_repository_impl.dart';
+import 'package:hackathon_app/domain/repositories/incident_repository.dart';
 import 'package:hackathon_app/presentation/logic/provider/image_provider.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
-
+import 'package:hackathon_app/presentation/logic/provider/incident_provider.dart';
 class IncidenceController {
+
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+
   BuildContext? context;
   IncidenceController({this.context});
+  final IncidentRepository _repository = IncidentRepositoryImpl(IncidentApi());
+
 
   void init({required BuildContext context}) {
     this.context = context;
@@ -31,23 +38,6 @@ class IncidenceController {
     return _newTime ?? time;
   }
 
-  Future<File?> pickImge() async {
-    try {
-      final _currentImageSource =
-          await ImagePicker().pickImage(source: ImageSource.camera);
-      return File(_currentImageSource!.path);
-    } on PlatformException catch (e) {
-      throw 'Error al seleccionar la imagen: $e';
-    }
-  }
-
-  Future<File> saveImagePermanently(String imagePath) async {
-    final _directory = await getApplicationDocumentsDirectory();
-    final _imageName = basename(imagePath);
-    final _newImagePath = File('${_directory.path}/$_imageName');
-    return File(imagePath).copy(_newImagePath.path);
-  }
-
   Future<bool?> showWarning(BuildContext context) async => showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -63,15 +53,37 @@ class IncidenceController {
               ]));
 
 
-  void sumbit(ImageDataProvider provider) async{
+  void sumbit(ImageDataProvider provider,IncidentProvider incidentProvider) async{
     //
-    final mP = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    final myPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+
+    PhotoModel? modelPhoto;
 
     if(provider.imgInfo != null){
-      
+      final bytes = await File(provider.imgInfo!.path).readAsBytes();
+      final isImageUpload = await PhotoAPI.instance.uploadPhoto(bytes, provider.imgInfo!.path, context!);
+      modelPhoto = isImageUpload;
     }
-    else{
 
+
+    final newIncident = IncidentModel(
+      id: "",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      lat: myPosition.latitude,
+      timeOfIncident:incidentProvider.currentDate.toUtc().toString().substring(0,11)+incidentProvider.currentTime.hour.toString()+":"+incidentProvider.currentTime.minute.toString(),
+      image: (modelPhoto != null)?modelPhoto:null,
+      description: descriptionController.text,
+      category: incidentProvider.categoryValue,
+      long: myPosition.longitude,
+      title: titleController.text,
+      user: null
+    );
+
+    final data = await _repository.createIncident(model: newIncident);
+
+    if(data){
+      Navigator.pop(context!);
     }
   }
 }

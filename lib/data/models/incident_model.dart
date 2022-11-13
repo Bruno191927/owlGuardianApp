@@ -18,24 +18,28 @@ class IncidentsModel{
 class IncidentModel extends Incident{
   IncidentModel({
     required String id,
-    required UserModel user,
+    UserModel? user,
     required String title,
+    required String category,
     required double long,
     required double lat,
-    required PhotoModel image,
+    required String timeOfIncident,
+    PhotoModel? image,
     required String description,
     required DateTime createdAt,
     required DateTime updatedAt
   }) : super(
     id: id,
     title: title,
+    category: category,
     lat: lat,
     long: long,
     description: description,
     image: image,
     createdAt: createdAt,
     updatedAt: updatedAt,
-    user: user
+    user: user,
+    timeOfIncident:timeOfIncident
   );
 
 
@@ -43,10 +47,12 @@ class IncidentModel extends Incident{
     return IncidentModel(
       id: json["id"],
       title: json["title"],
-      user: UserModel.fromJson(json["user"]),
+      timeOfIncident:json["timeOfIncident"],
+      category: json["category"],
+      user: json["user"] != null ? UserModel.fromJson(json["user"]) : null,
       long: json["long"], 
       lat: json["lat"], 
-      image: PhotoModel.fromJson(json["image"]), 
+      image: json["image"] != null ? PhotoModel.fromJson(json["image"]) : null, 
       description: json["description"], 
       createdAt: DateTime.parse("createdAt"), 
       updatedAt: DateTime.parse("updatedAt")
@@ -55,12 +61,13 @@ class IncidentModel extends Incident{
 
   Map<String, dynamic> toJson() {
     return {
-      "id":id,
       "title":title,
       "lat":lat,
+      "category":category,
+      "timeOfIncident":timeOfIncident,
       "long":long,
       "description":description,
-      "image":image.toJson(),
+      "image":(image != null) ? image!.toJson() : null,
     };
   }
 }

@@ -10,6 +10,7 @@ import 'package:hackathon_app/presentation/core/shared_widgets/custom_obtaine_im
 import 'package:hackathon_app/presentation/core/shared_widgets/custom_textfieldform_widget.dart';
 import 'package:hackathon_app/presentation/core/utils/extras.dart';
 import 'package:hackathon_app/presentation/logic/provider/image_provider.dart';
+import 'package:hackathon_app/presentation/logic/provider/incident_provider.dart';
 import 'package:hackathon_app/presentation/views/pages/incidence/incidence_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,7 @@ class _IncidencePageState extends State<IncidencePage> {
   File? _imageUrl;
   late DateTime _currentDate;
   late TimeOfDay _currentTime;
+  late String categoryValue;
   final _categoryItems = [
     'Denuncia pública',
     'Disturbios',
@@ -44,6 +46,7 @@ class _IncidencePageState extends State<IncidencePage> {
   @override
   Widget build(BuildContext context) {
     final imageDataProvider = Provider.of<ImageDataProvider>(context);
+    final incidentProvider = Provider.of<IncidentProvider>(context);
     return WillPopScope(
       child: Scaffold(
         appBar: AppBar(
@@ -67,6 +70,7 @@ class _IncidencePageState extends State<IncidencePage> {
                     textFormColor: AppColors.grey,
                     borderColor: AppColors.orange,
                     enabledBorderColor: AppColors.orange,
+                    controller: _incidenceController.titleController,
                   ),
                   const SizedBox(height: 20.0),
                   CustomTextFieldForm(
@@ -76,10 +80,16 @@ class _IncidencePageState extends State<IncidencePage> {
                     textFormColor: AppColors.grey,
                     borderColor: AppColors.orange,
                     enabledBorderColor: AppColors.orange,
+                    controller: _incidenceController.descriptionController,
                   ),
                   const SizedBox(height: 20.0),
                   CustomDropDownButton(
-                      items: _categoryItems, text: "Catorgías"),
+                      items: _categoryItems, 
+                      text: "Categorías",
+                      onChanged: (value) {
+                        incidentProvider.changeCategoryValue(value!);
+                      },
+                  ),
                   const SizedBox(height: 20.0),
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -92,9 +102,8 @@ class _IncidencePageState extends State<IncidencePage> {
                                     text:
                                         "${_currentDate.year}/${_currentDate.month}/${_currentDate.day}",
                                     onTap: () async {
-                                      final _newDate =
-                                          await _incidenceController.pickDate(
-                                              context, _currentDate);
+                                      final _newDate =await _incidenceController.pickDate(context, _currentDate);
+                                      incidentProvider.changeCurrentDate(_newDate);
                                       setState(() => _currentDate = _newDate);
                                     })),
                             const SizedBox(width: 40.0),
@@ -103,15 +112,14 @@ class _IncidencePageState extends State<IncidencePage> {
                                     icon: Icons.access_time_outlined,
                                     text: _currentTime.format(context),
                                     onTap: () async {
-                                      final _newTime =
-                                          await _incidenceController.pickTime(
-                                              context, _currentTime);
+                                      final _newTime = await _incidenceController.pickTime(context, _currentTime);
+                                      incidentProvider.changeCurrentTime(_newTime);
                                       setState(() => _currentTime = _newTime);
                                     }))
                           ])),
                   const SizedBox(height: 20.0),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: 
                     imageDataProvider.imgInfo == null
                     ?CustomImageSelectorWidget(
@@ -124,9 +132,7 @@ class _IncidencePageState extends State<IncidencePage> {
                   const SizedBox(height: 40.0),
                   CustomElevatedButton(
                     text: "Agregar",
-                    onPressed: () {
-                      _incidenceController.sumbit(imageDataProvider);
-                    },
+                    onPressed: ()=> _incidenceController.sumbit(imageDataProvider,incidentProvider),
                     buttonColor: AppColors.orange,
                     textColor: AppColors.white,
                   ),

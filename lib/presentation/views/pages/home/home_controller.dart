@@ -88,28 +88,26 @@ class HomeController with ChangeNotifier {
     final markerId = MarkerId(id);
     final icon = await _iconMap.future;
     final marker = Marker(
-        markerId: markerId,
-        position: position,
-        draggable: true,
-        anchor: const Offset(0.5, 1),
-        icon: icon,
-        onTap: () {
-          _markersController.sink.add(id);
-          showModalBottomSheet(
-            context: context,
-            builder: (context) => const ModalBottomSheet(),
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15.0),
-                    topRight: Radius.circular(15.0))),
-            constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * 0.85),
-            isScrollControlled: true,
-          );
-        },
-        onDragEnd: (newPosition) {
-          //print(newPosition);
-        });
+      markerId: markerId,
+      position: position,
+      draggable: false,
+      anchor: const Offset(0.5, 1),
+      icon: icon,
+      onTap: () {
+        _markersController.sink.add(id);
+        showModalBottomSheet(
+          context: context,
+          builder: (context) => const ModalBottomSheet(),
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15.0),
+                  topRight: Radius.circular(15.0))),
+          constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.85),
+          isScrollControlled: true,
+        );
+      }
+    );
     _markers[markerId] = marker;
     notifyListeners();
   }
