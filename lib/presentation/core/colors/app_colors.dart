@@ -9,7 +9,7 @@ class AppColors {
   static Color white70 = Colors.white70;
   static Color grey = Colors.grey.shade700;
   static Color black = Colors.black;
-  static Color cyan = Colors.cyanAccent;
+  static Color cyan = const Color(0xff18ffff);
   static Color greyBackground = Colors.grey.shade900;
 }
 

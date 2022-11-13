@@ -34,47 +34,73 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(children: [
                 const SizedBox(height: 40.0),
                 // Logo de la App
-                ColoredBox(
-                    color: AppColors.cyan.withOpacity(0.3),
-                    child: const SizedBox(width: 250.0, height: 200.0)),
-                const SizedBox(height: 40.0),
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text('INGRESAR',
-                      style: TextStyle(color: AppColors.white, fontSize: 30.0)),
-                  const SizedBox(height: 8.0),
-                  Text('Por favor, complete los siguientes campos:',
-                      style: TextStyle(color: AppColors.white70))
-                ]),
-                const SizedBox(height: 40.0),
-                const CustomTextFieldForm(
-                    text: 'Correo eletrónico',
-                    icon: Icons.email_outlined,
-                    inputType: TextInputType.emailAddress),
-                const SizedBox(height: 20.0),
-                const CustomTextFieldForm(
-                  text: 'Contraseña',
-                  icon: Icons.password_outlined,
-                  inputType: TextInputType.visiblePassword,
-                  obscureText: true,
+                Container(
+                  width: 200,
+                  height: 200,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/logo.png')
+                    )
+                  ),
                 ),
                 const SizedBox(height: 40.0),
-                CustomElevatedButton(
-                  text: 'Iniciar sesión',
-                  onPressed: () => _loginController.submit(),
+                Form(
+                  key: _loginController.formKey,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('OWL GUARDIAN',style: TextStyle(color: AppColors.cyan, fontSize: 30.0,fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    const SizedBox(height: 8.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Por favor, complete los siguientes campos:',style: TextStyle(color: AppColors.white70))
+                      ],
+                    ),
+                    const SizedBox(height: 40.0),
+                    CustomTextFieldForm(
+                      text: 'Correo eletrónico',
+                      icon: Icons.email_outlined,
+                      inputType: TextInputType.emailAddress,
+                      controller: _loginController.emailController,
+                    ),
+                    const SizedBox(height: 20.0),
+                    CustomTextFieldForm(
+                      text: 'Contraseña',
+                      icon: Icons.password_outlined,
+                      inputType: TextInputType.visiblePassword,
+                      obscureText: true,
+                      controller: _loginController.passwordController,
+                    ),
+                    const SizedBox(height: 40.0),
+                    CustomElevatedButton(
+                      text: 'Iniciar sesión',
+                      onPressed: () => _loginController.submit(),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text('¿Olvidaste la contraseña?',
+                        style: TextStyle(color: AppColors.cyan)
+                      )
+                    ),
+                    const SizedBox(height: 20.0),
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      Text('¿Aún no tienes una cuenta?',
+                          style: TextStyle(color: AppColors.white70)),
+                      TextButton(
+                          onPressed: () => _loginController.register(),
+                          child: Text('Registrarse',
+                              style: TextStyle(color: AppColors.cyan)))
+                    ])
+                  ]),
                 ),
-                TextButton(
-                    onPressed: () {},
-                    child: Text('¿Olvidaste la contraseña?',
-                        style: TextStyle(color: AppColors.cyan))),
-                const SizedBox(height: 20.0),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text('¿Aún no tienes una cuenta?',
-                      style: TextStyle(color: AppColors.white70)),
-                  TextButton(
-                      onPressed: () => _loginController.register(),
-                      child: Text('Registrarse',
-                          style: TextStyle(color: AppColors.cyan)))
-                ])
+                
+                
+                
               ]))),
       backgroundColor: AppColors.greyBackground);
 }
