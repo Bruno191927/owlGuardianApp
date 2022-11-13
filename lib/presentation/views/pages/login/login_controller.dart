@@ -21,7 +21,6 @@ class LoginController {
   void submit() async {
     final _isValid = formKey.currentState?.validate() ?? false;
     if(_isValid){
-      print('No here');
       final loginOk = await  _repository.login(email: emailController.text, password: passwordController.text);
       if(loginOk){
         Navigator.pushNamed(context!, SplashPage.routeName);

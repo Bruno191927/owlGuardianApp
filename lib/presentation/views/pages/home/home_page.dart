@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 import 'package:hackathon_app/presentation/views/pages/home/home_controller.dart';
+import 'package:hackathon_app/presentation/views/pages/notifications/notifications_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -78,7 +79,9 @@ class HomePage extends StatelessWidget {
                                               child: IconButton(
                                                 icon: const Icon(
                                                     Icons.podcasts_outlined),
-                                                onPressed: () {},
+                                                onPressed: () {
+
+                                                },
                                               ),
                                             ),
                                             SizedBox(
@@ -94,7 +97,9 @@ class HomePage extends StatelessWidget {
                                               child: IconButton(
                                                 icon: const Icon(
                                                     Icons.notifications),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                    Navigator.pushNamed(context, NotificationsPage.routeName);
+                                                },
                                               ),
                                             ),
                                             SizedBox(
