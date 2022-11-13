@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 class HomePage extends StatelessWidget {
   static const routeName = "home";
   const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -40,7 +41,7 @@ class HomePage extends StatelessWidget {
                           initialCameraPosition:
                               controller.initialCameraPosition,
                           markers: controller.markers,
-                          onTap: (LatLng position){
+                          onTap: (LatLng position) {
                             controller.onTap(position, context);
                           },
                         ),
@@ -51,7 +52,7 @@ class HomePage extends StatelessWidget {
                             children: [
                               Container(
                                 margin: const EdgeInsets.only(bottom: 50),
-                                height: 80,
+                                height: 100,
                                 child: Stack(
                                   children: [
                                     Center(
@@ -63,26 +64,27 @@ class HomePage extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius:
-                                                BorderRadius.circular(40),
+                                                BorderRadius.circular(10),
                                             boxShadow: const [
                                               BoxShadow(
                                                   color: Colors.black26,
                                                   offset: Offset(1, 1),
-                                                  blurRadius: 6)
+                                                  blurRadius: 4)
                                             ]),
                                         child: Row(
                                           children: [
                                             SizedBox(
                                               width: size.width * 0.15,
                                               child: IconButton(
-                                                icon: const Icon(Icons.home),
+                                                icon: const Icon(
+                                                    Icons.podcasts_outlined),
                                                 onPressed: () {},
                                               ),
                                             ),
                                             SizedBox(
                                               width: size.width * 0.15,
                                               child: IconButton(
-                                                icon: const Icon(Icons.home),
+                                                icon: const Icon(Icons.person),
                                                 onPressed: () {},
                                               ),
                                             ),
@@ -90,14 +92,16 @@ class HomePage extends StatelessWidget {
                                             SizedBox(
                                               width: size.width * 0.15,
                                               child: IconButton(
-                                                icon: const Icon(Icons.home),
+                                                icon: const Icon(
+                                                    Icons.notifications),
                                                 onPressed: () {},
                                               ),
                                             ),
                                             SizedBox(
                                               width: size.width * 0.15,
                                               child: IconButton(
-                                                icon: const Icon(Icons.home),
+                                                icon:
+                                                    const Icon(Icons.settings),
                                                 onPressed: () {},
                                               ),
                                             ),
@@ -106,23 +110,40 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ),
                                     Center(
-                                      child: Container(
-                                        height: 60,
-                                        width: 60,
-                                        decoration: BoxDecoration(
-                                            color: (controller.dialogEnabled)
-                                                ? Colors.white
-                                                : Colors.red,
-                                            borderRadius:
-                                                BorderRadius.circular(70),
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                  color: Colors.black26,
-                                                  offset: Offset(1, 1),
-                                                  blurRadius: 6)
-                                            ]),
+                                      child: GestureDetector(
+                                        onTap: () =>
+                                            controller.incidence(context),
+                                        child: Container(
+                                          height: 55,
+                                          width: 55,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                    color: Colors.black54,
+                                                    offset: Offset(0, 0),
+                                                    blurRadius: 3),
+                                              ],
+                                              gradient: LinearGradient(
+                                                  begin: Alignment.bottomCenter,
+                                                  end: Alignment.topCenter,
+                                                  colors: [
+                                                    const Color(0xFFDDA766),
+                                                    AppColors.orange,
+                                                  ])),
+                                          margin: const EdgeInsets.only(
+                                              bottom: 30.0),
+                                          child: RotatedBox(
+                                              quarterTurns: 3,
+                                              child: Icon(
+                                                Icons.double_arrow_outlined,
+                                                size: 38.0,
+                                                color: AppColors.white,
+                                              )),
+                                        ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               )
