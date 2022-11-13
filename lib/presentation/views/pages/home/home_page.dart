@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
-                                margin: const EdgeInsets.only(bottom: 50),
+                                margin: const EdgeInsets.only(bottom: 45),
                                 height: 100,
                                 child: Stack(
                                   children: [
@@ -128,6 +128,7 @@ class HomePage extends StatelessWidget {
                                         child: Container(
                                           height: 55,
                                           width: 55,
+                                          padding: const EdgeInsets.all(7.0),
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(10),
@@ -146,13 +147,8 @@ class HomePage extends StatelessWidget {
                                                   ])),
                                           margin: const EdgeInsets.only(
                                               bottom: 30.0),
-                                          child: RotatedBox(
-                                              quarterTurns: 3,
-                                              child: Icon(
-                                                Icons.double_arrow_outlined,
-                                                size: 38.0,
-                                                color: AppColors.white,
-                                              )),
+                                          child: Image.asset(
+                                              "assets/main_button_icon.png"),
                                         ),
                                       ),
                                     ),
