@@ -5,15 +5,11 @@ class CustomDropDownButton extends StatelessWidget {
   final double margin;
   final List<String> items;
   final String text;
-  final Color textFormColor;
-  final Color borderColor;
   const CustomDropDownButton({
     Key? key,
-    this.margin = 2.0,
+    this.margin = 15.0,
     required this.items,
     this.text = "",
-    this.textFormColor = Colors.white70,
-    this.borderColor = Colors.white70,
   }) : super(key: key);
 
   @override
@@ -24,22 +20,16 @@ class CustomDropDownButton extends StatelessWidget {
           child: DropdownButtonFormField(
             items: items.map(buildMenuItem).toList(),
             onChanged: (value) {},
-            // decoration: InputDecoration(
-            //     labelText: text,
-            //     labelStyle: TextStyle(color: textFormColor),
-            //     prefixIcon:
-            //         Icon(Icons.keyboard_arrow_down, color: textFormColor),
-            //     errorBorder: OutlineInputBorder(
-            //         borderSide: BorderSide(color: AppColors.red),
-            //         borderRadius: BorderRadius.circular(16.0)),
-            //     focusedBorder: OutlineInputBorder(
-            //         borderSide: BorderSide(color: borderColor),
-            //         borderRadius: BorderRadius.circular(16.0)),
-            //     focusedErrorBorder: OutlineInputBorder(
-            //         borderSide: BorderSide(color: AppColors.red),
-            //         borderRadius: BorderRadius.circular(16.0)),
-            //     enabledBorder: OutlineInputBorder(
-            //         borderSide: BorderSide(color: AppColors.transparent))),
+            decoration: InputDecoration(
+                labelText: text,
+                labelStyle: TextStyle(color: AppColors.grey),
+                prefixIcon: Icon(Icons.ac_unit, color: AppColors.grey),
+                errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.red),
+                    borderRadius: BorderRadius.circular(16.0)),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.orange),
+                    borderRadius: BorderRadius.circular(16.0))),
             isExpanded: true,
           ),
         ));
