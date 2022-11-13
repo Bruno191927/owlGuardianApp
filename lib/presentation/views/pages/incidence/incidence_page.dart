@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/custom_datetimebutton_widget.dart';
@@ -71,7 +72,7 @@ class _IncidencePageState extends State<IncidencePage> {
                   text: "Catorgías",
                 ),
                 const SizedBox(height: 20.0),
-                CustomDateTimeButton(
+                /*CustomDateTimeButton(
                     initialValue:
                         "${_datetime.year}-${_datetime.month}-${_datetime.day}",
                     text: "Fecha",
@@ -79,7 +80,18 @@ class _IncidencePageState extends State<IncidencePage> {
                       final _curreDateTime = await _incidenceController
                           .pickDate(context, _datetime);
                       setState(() => _datetime = _curreDateTime!);
-                    }),
+                    }),*/
+                CupertinoButton(child: Text('GG'), onPressed: () async{
+                  final time = await showDatePicker(
+                    context: context, 
+                    initialDate: DateTime.now(), 
+                    firstDate: DateTime(2010, 1, 1), 
+                    lastDate: DateTime(2030, 1, 1),
+                    
+                  );
+
+                  print(time);
+                }),
                 const SizedBox(height: 20.0),
                 CustomTextFieldForm(
                   text: "Fecha",
