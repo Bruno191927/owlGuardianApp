@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/custom_elevatedbutton_widget.dart';
@@ -43,49 +42,58 @@ class _RegisterPageState extends State<RegisterPage> {
                 Form(
                     key: _registerController.formKey,
                     child: Wrap(runSpacing: 20.0, children: [
-                      const CustomTextFieldForm(
-                          text: 'Nombre completo',
+                      CustomTextFieldForm(
+                          text: 'Nombres',
                           icon: Icons.person_outline,
-                          inputType: TextInputType.name),
-                      const CustomTextFieldForm(
+                          inputType: TextInputType.name,
+                          controller: _registerController.firstNameCtrontoller,
+                      ),
+                      CustomTextFieldForm(
+                          text: 'Apellidos',
+                          icon: Icons.person_outline,
+                          inputType: TextInputType.name,
+                          controller: _registerController.lastNameController,
+                      ),
+                      CustomTextFieldForm(
+                          text: 'Documento de Identidad',
+                          icon: Icons.person_outline,
+                          inputType: TextInputType.name,
+                          controller: _registerController.documentNumberController,
+                      ),
+                      CustomTextFieldForm(
                           text: 'Número de celular',
                           icon: Icons.phone_android_outlined,
-                          inputType: TextInputType.phone),
-                      const CustomTextFieldForm(
+                          inputType: TextInputType.phone,
+                          controller: _registerController.cellPhoneController,
+                      ),
+                      CustomTextFieldForm(
                           text: 'Correo electrónico',
                           icon: Icons.email_outlined,
-                          inputType: TextInputType.emailAddress),
+                          inputType: TextInputType.emailAddress,
+                          controller: _registerController.emailController,
+                      ),
                       CustomTextFieldForm(
                           controller: _registerController.passwordController1,
                           text: 'Contraseña',
                           icon: Icons.password_outlined,
                           inputType: TextInputType.visiblePassword,
-                          obscureText: true),
+                          obscureText: true
+                      ),
                       CustomTextFieldForm(
                           controller: _registerController.passwordController2,
                           text: 'Confirmar contraseña',
                           icon: Icons.password_outlined,
                           inputType: TextInputType.visiblePassword,
                           obscureText: true,
-                          targetController:
-                              _registerController.passwordController1),
+                          targetController: _registerController.passwordController1
+                      ),
                     ]),
                     autovalidateMode: AutovalidateMode.onUserInteraction),
                 const SizedBox(height: 40.0),
                 CustomElevatedButton(
                   text: 'Registrarse',
                   onPressed: () {
-                    _registerController.submit();
-                    showModalBottomSheet(
-                      backgroundColor: AppColors.orange,
-                      context: context,
-                      builder: (context) {
-                        return Container(
-                          height: 300.0,
-                          child: Text('ModalSheet'),
-                        );
-                      },
-                    );
+                    _registerController.submit(context);
                   },
                 ),
                 const SizedBox(height: 40.0),
