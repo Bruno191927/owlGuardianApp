@@ -31,6 +31,7 @@ class IncidentApi{
     final token = await Auth.instance.accessToken;
     try {
       final Response response = await _dio.get('/',options: Options(headers: {"Auth":token}));
+      print(response.data);
       if(response.statusCode == 200){
         final incidents = IncidentsModel.fromJsonList(response.data);
         return incidents.items;

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' show ChangeNotifier, Offset;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hackathon_app/data/datasource/api/incident_api.dart';
+import 'package:hackathon_app/data/repositori_impl/incident_repository_impl.dart';
+import 'package:hackathon_app/domain/repositories/incident_repository.dart';
 import 'package:hackathon_app/presentation/core/routes/image_to_bytes.dart';
 import 'package:hackathon_app/presentation/core/shared_widgets/modal_bottom_sheet_widget.dart';
 import 'package:hackathon_app/presentation/core/styles/map/map_styles.dart';
@@ -11,11 +14,13 @@ import 'package:hackathon_app/presentation/views/pages/profile/profile_page.dart
 import 'package:hackathon_app/presentation/views/pages/settings/settings_page.dart';
 
 class HomeController with ChangeNotifier {
+  final IncidentRepository _repository = IncidentRepositoryImpl(IncidentApi());
   final Map<MarkerId, Marker> _markers = {};
   CameraPosition initialCameraPosition =
       const CameraPosition(target: LatLng(-11.925617, -76.674504), zoom: 15);
 
   final _iconMap = Completer<BitmapDescriptor>();
+
 
   bool _loading = true;
   bool get loading => _loading;
@@ -41,7 +46,6 @@ class HomeController with ChangeNotifier {
     final value = await imageToBytes('assets/location_pin_icon.png');
     final bitmap = BitmapDescriptor.fromBytes(value);
     _iconMap.complete(bitmap);
-
     _gpsEnabled = await Geolocator.isLocationServiceEnabled();
 
     _loading = false;
@@ -55,7 +59,38 @@ class HomeController with ChangeNotifier {
         desiredAccuracy: LocationAccuracy.best);
     initialCameraPosition = CameraPosition(
         target: LatLng(myPosition.latitude, myPosition.longitude), zoom: 15);
+    notifyListeners();
+  }
 
+
+  void getMarkersData(BuildContext context) async{
+    final icon = await _iconMap.future;
+    final markers = await _repository.getIncidents();
+    int n = 0;
+    for(var markerData in markers){
+      final markerId = MarkerId(n.toString());
+
+      final newMarker = Marker(
+          markerId: markerId,
+          position: LatLng(markerData.lat,markerData.long),
+          icon: icon,
+          onTap: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) => ModalBottomSheet(model: markerData),
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15.0),
+                      topRight: Radius.circular(15.0))),
+              constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * 0.85),
+              isScrollControlled: true,
+            );
+          },
+      );
+      _markers[markerId] = newMarker;
+      n++;
+    }
     notifyListeners();
   }
 
@@ -94,18 +129,7 @@ class HomeController with ChangeNotifier {
       anchor: const Offset(0.5, 1),
       icon: icon,
       onTap: () {
-        _markersController.sink.add(id);
-        showModalBottomSheet(
-          context: context,
-          builder: (context) => const ModalBottomSheet(),
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15.0),
-                  topRight: Radius.circular(15.0))),
-          constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * 0.85),
-          isScrollControlled: true,
-        );
+
       }
     );
     _markers[markerId] = marker;

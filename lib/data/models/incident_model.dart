@@ -50,12 +50,12 @@ class IncidentModel extends Incident{
       timeOfIncident:json["timeOfIncident"],
       category: json["category"],
       user: json["user"] != null ? UserModel.fromJson(json["user"]) : null,
-      long: json["long"], 
-      lat: json["lat"], 
+      long: json["long"].toDouble(), 
+      lat: json["lat"].toDouble(), 
       image: json["image"] != null ? PhotoModel.fromJson(json["image"]) : null, 
       description: json["description"], 
-      createdAt: DateTime.parse("createdAt"), 
-      updatedAt: DateTime.parse("updatedAt")
+      createdAt: DateTime.parse(json["createdAt"]), 
+      updatedAt: DateTime.parse(json["updatedAt"])
     );
   }
 

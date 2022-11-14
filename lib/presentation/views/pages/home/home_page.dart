@@ -17,6 +17,7 @@ class HomePage extends StatelessWidget {
     return ChangeNotifierProvider<HomeController>(
       create: (_) {
         final controller = HomeController();
+        controller.getMarkersData(context);
         controller.onMarkerTap.listen((String id) {
           //print("Got to $id");
         });

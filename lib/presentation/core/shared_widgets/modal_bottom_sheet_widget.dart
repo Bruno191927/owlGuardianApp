@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_app/data/models/incident_model.dart';
 import 'package:hackathon_app/presentation/core/colors/app_colors.dart';
 
 class ModalBottomSheet extends StatefulWidget {
-  const ModalBottomSheet({Key? key}) : super(key: key);
+  final IncidentModel model;
+  const ModalBottomSheet({Key? key,required this.model}) : super(key: key);
 
   @override
   State<ModalBottomSheet> createState() => _ModalBottomSheetState();
@@ -33,15 +35,14 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             alignment: Alignment.centerLeft,
-            child: const Text("Título",
+            child: Text(widget.model.title,
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(height: 10.0),
           Container(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               width: double.infinity,
-              child: const Text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+              child: Text(widget.model.description,
                 textAlign: TextAlign.justify,
                 style: TextStyle(fontSize: 15.0),
               )),
@@ -49,14 +50,15 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
           Card(
               child: ClipRRect(
             borderRadius: BorderRadius.circular(16.0),
-            child: Image.asset("assets/no_image.png"),
+            child: (widget.model.image != null && widget.model.image!.secureUrl != "No Image")
+            ?Image(image: NetworkImage(widget.model.image!.secureUrl))
+            :Image.asset("assets/no_image.png"),
           )),
           const SizedBox(height: 5.0),
           Container(
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text(
-                "${_pubDate.year}-${_pubDate.month}-${_pubDate.day}",
+              child: Text(widget.model.timeOfIncident,
                 textAlign: TextAlign.justify,
                 style: const TextStyle(fontSize: 15.0),
               ))
